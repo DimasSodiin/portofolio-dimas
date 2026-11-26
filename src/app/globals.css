@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core Monochrome Colors */
+  --color-obsidian: #000000;
+  --color-onyx: #0f0d0d;
+  --color-charcoal: #171615;
+  --color-graphite: #262828;
+  --color-paper: #ffffff;
+  --color-ash: #878686;
+  --color-smoke: #6f6e6e;
+  --color-fog: #939292;
+
+  /* UI/UX Pro Max recommended typography */
+  --font-emilio-display: 'Cormorant Garamond', Georgia, serif;
+  --font-giga-sans: 'Space Grotesk', system-ui, sans-serif;    /* distinctive, portfolio-ready */
+  --font-archivo: 'Archivo', system-ui, sans-serif;             /* clean body text */
+  --font-geist-mono: 'JetBrains Mono', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+@theme {
+  --color-obsidian: #000000;
+  --color-onyx: #0f0d0d;
+  --color-charcoal: #171615;
+  --color-graphite: #262828;
+  --color-paper: #ffffff;
+  --color-ash: #878686;
+  --color-smoke: #6f6e6e;
+  --color-fog: #939292;
+
+  --font-emilio: var(--font-emilio-display);
+  --font-sans: var(--font-giga-sans);
+  --font-body: var(--font-archivo);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background-color: var(--color-onyx);
+  color: var(--color-paper);
+  /* Use Archivo for body text — cleaner reading experience */
+  font-family: var(--font-archivo), var(--font-giga-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Typography treatments */
+.font-emilio {
+  font-family: var(--font-emilio-display), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+
+/* Headings & UI — Space Grotesk */
+.font-sans {
+  font-family: var(--font-giga-sans), system-ui, sans-serif;
+}
+
+/* UI Pro Max: Focus states — keyboard accessibility (Priority 1) */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* UI Pro Max: cursor-pointer on all interactive elements */
+button,
+[role="button"],
+a {
+  cursor: pointer;
+}
+
+/* UI Pro Max: hover transitions 150–300ms */
+a,
+button {
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #262828;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #878686;
+}
+
+/* UI Pro Max: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
