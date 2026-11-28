@@ -15,7 +15,7 @@ export default function Home() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-[#0f0d0d] text-[#ffffff] selection:bg-[#ffffff] selection:text-black relative">
+    <main className="min-h-screen bg-bg-primary text-text-primary selection:bg-accent selection:text-accent-contrast relative transition-colors duration-300">
       {/* Floating Navigation */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
@@ -35,7 +35,7 @@ export default function Home() {
       <Experience />
 
       {/* Contact Section */}
-      <Contact onOpenResume={() => setIsResumeOpen(true)} />
+      <Contact />
 
       {/* Footer */}
       <Footer />

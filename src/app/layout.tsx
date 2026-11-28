@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Space_Grotesk, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n/LanguageContext";
-import PixelCursorTrail from "@/components/PixelCursorTrail";
+import { ThemeProvider } from "@/theme/ThemeContext";
+import { CursorProvider } from "@/cursor/CursorContext";
+import CursorTrail from "@/components/CursorTrail";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
+import ThemeSidebar from "@/components/ThemeSidebar";
+
 
 // Serif display — editorial headlines (stays as-is)
 const emilioDisplay = Cormorant_Garamond({
@@ -70,22 +74,47 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeInitScript = `
+    (function() {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        var valid = ['clean-light','dark-obsidian','rose-petal','sky-blue','lavender-mist'];
+        var theme = valid.indexOf(saved) !== -1 ? saved : 'clean-light';
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark-obsidian') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  `;
+
   return (
     <html
       lang="id"
-      className={`${emilioDisplay.variable} ${gigaSans.variable} ${archivo.variable} ${geistMono.variable} scroll-smooth dark`}
+      data-theme="clean-light"
+      className={`${emilioDisplay.variable} ${gigaSans.variable} ${archivo.variable} ${geistMono.variable} scroll-smooth`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body
-        className="bg-[#0f0d0d] text-[#ffffff] font-sans antialiased selection:bg-[#ffffff] selection:text-black min-h-screen overflow-x-hidden"
+        className="bg-bg-primary text-text-primary font-sans antialiased selection:bg-accent selection:text-accent-contrast min-h-screen overflow-x-hidden"
         suppressHydrationWarning
       >
-        <LanguageProvider>
-          <PixelCursorTrail />
-          <ScrollProgress />
-          <ScrollToTop />
-          {children}
-        </LanguageProvider>
+        <ThemeProvider>
+          <CursorProvider>
+            <LanguageProvider>
+              <CursorTrail />
+              <ScrollProgress />
+              <ScrollToTop />
+              <ThemeSidebar />
+              {children}
+            </LanguageProvider>
+          </CursorProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

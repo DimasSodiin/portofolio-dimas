@@ -194,14 +194,14 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
   const reduce = useReducedMotion();
   return (
     <motion.div
-      className="group bg-[#0f0d0d] flex flex-col cursor-pointer transition-all duration-300 h-full border border-white/[0.05] hover:border-white/20 active:border-white/30"
+      className="group bg-bg-primary flex flex-col cursor-pointer transition-all duration-300 h-full border border-border-subtle hover:border-border-strong active:border-accent"
       initial={reduce ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       onClick={onOpen}
     >
-      <div className="relative h-[210px] sm:h-[300px] w-full overflow-hidden bg-[#171615] flex-shrink-0">
+      <div className="relative h-[210px] sm:h-[300px] w-full overflow-hidden bg-bg-secondary flex-shrink-0">
         <Image
           src={project.image}
           alt={project.title}
@@ -210,7 +210,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
           className="object-cover object-top grayscale group-hover:grayscale-0 sm:grayscale sm:hover:grayscale-0 transition-all duration-500 ease-out"
         />
-        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 font-mono text-[9px] sm:text-[10px] text-white/90 tracking-[0.12em] uppercase bg-black/90 px-2.5 py-1 border border-white/10">
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 font-mono text-[9px] sm:text-[10px] text-text-primary tracking-[0.12em] uppercase bg-bg-primary/90 backdrop-blur-sm px-2.5 py-1 border border-border-medium">
           {project.category}
         </div>
       </div>
@@ -218,27 +218,27 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
       <div className="p-5 sm:p-8 flex flex-col gap-3 sm:gap-4 flex-1">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="font-mono text-[10px] text-white/60 mb-1.5 uppercase tracking-widest">
+            <div className="font-mono text-[10px] text-accent mb-1.5 uppercase tracking-widest">
               No. {project.number}
             </div>
-            <h3 className="font-emilio text-[22px] sm:text-[32px] font-light text-white leading-tight">
+            <h3 className="font-emilio text-[22px] sm:text-[32px] font-light text-text-primary leading-tight">
               {project.title}
             </h3>
           </div>
-          <div className="shrink-0 mt-0.5 p-1.5 sm:p-2 border border-white/10 text-[#878686] group-hover:text-black group-hover:bg-white transition-all duration-300">
+          <div className="shrink-0 mt-0.5 p-1.5 sm:p-2 border border-border-medium text-text-secondary group-hover:text-accent-contrast group-hover:bg-accent group-hover:border-accent transition-all duration-300">
             <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
           </div>
         </div>
 
-        <p className="text-[#878686] text-[13px] sm:text-[14px] leading-relaxed flex-1">
+        <p className="text-text-secondary text-[13px] sm:text-[14px] leading-relaxed flex-1">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-white/[0.04]">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-border-subtle">
           {project.highlights.map((h) => (
             <span
               key={h}
-              className="px-2 py-0.5 sm:py-1 bg-white/[0.03] text-[9px] sm:text-[10px] font-mono text-white/60 uppercase tracking-widest"
+              className="px-2 py-0.5 sm:py-1 bg-surface-tint text-[9px] sm:text-[10px] font-mono text-text-secondary uppercase tracking-widest"
             >
               {h}
             </span>
@@ -278,7 +278,7 @@ export default function SelectedWork() {
   }, [t]);
 
   return (
-    <section id="work" className="py-16 sm:py-36 px-4 sm:px-6 bg-[#0f0d0d] relative border-t border-white/[0.05]">
+    <section id="work" className="py-16 sm:py-36 px-4 sm:px-6 bg-bg-primary relative border-t border-border-subtle transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         <motion.div
           className="mb-12 sm:mb-24"
@@ -289,20 +289,20 @@ export default function SelectedWork() {
         >
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6">
             <div>
-              <p className="font-mono text-[10px] text-white/60 tracking-[0.18em] uppercase mb-4 sm:mb-6">
+              <p className="font-mono text-[10px] text-accent tracking-[0.18em] uppercase mb-4 sm:mb-6">
                 {t.work.sectionLabel}
               </p>
-              <h2 className="font-emilio text-[32px] sm:text-[60px] font-light text-white tracking-[-0.02em] leading-[1.15] sm:leading-[1.1] max-w-lg">
+              <h2 className="font-emilio text-[32px] sm:text-[60px] font-light text-text-primary tracking-[-0.02em] leading-[1.15] sm:leading-[1.1] max-w-lg">
                 {t.work.heading}
               </h2>
             </div>
-            <p className="text-[#878686] text-[13px] sm:text-[14px] leading-relaxed max-w-xs sm:text-right">
+            <p className="text-text-secondary text-[13px] sm:text-[14px] leading-relaxed max-w-xs sm:text-right">
               {t.work.subtitle}
             </p>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-px bg-transparent sm:bg-white/[0.05] border-0 sm:border border-white/[0.05]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-px bg-transparent sm:bg-border-subtle border-0 sm:border border-border-subtle">
           {localizedProjects.map((project) => (
             <ProjectCard key={project.id} project={project} onOpen={() => setSelected(project)} />
           ))}
@@ -320,7 +320,7 @@ export default function SelectedWork() {
             href="https://www.behance.net/sodiindimas"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-2.5 sm:gap-3 border border-white/10 px-5 sm:px-7 py-3 sm:py-4 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider sm:tracking-widest text-[#878686] hover:text-white hover:border-white/30 transition-all duration-300 text-center max-w-full"
+            className="group flex items-center justify-center gap-2.5 sm:gap-3 border border-border-medium px-5 sm:px-7 py-3 sm:py-4 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider sm:tracking-widest text-text-secondary hover:text-text-primary hover:border-border-strong transition-all duration-300 text-center max-w-full"
           >
             <span>{t.work.viewOnBehance}</span>
             <ArrowSquareOut size={14} className="opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />

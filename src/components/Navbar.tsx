@@ -32,27 +32,19 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-6 px-3 sm:px-6 pointer-events-none">
         <div className="max-w-6xl mx-auto pointer-events-auto">
-          <motion.nav
-            className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-none border-b backdrop-blur-md"
-            animate={
+          <nav
+            className={`flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 rounded-none border-b backdrop-blur-md transition-colors duration-300 ${
               scrolled
-                ? {
-                    backgroundColor: "rgba(15, 13, 13, 0.9)",
-                    borderColor: "rgba(255, 255, 255, 0.08)",
-                  }
-                : {
-                    backgroundColor: "rgba(15, 13, 13, 0.4)",
-                    borderColor: "rgba(255, 255, 255, 0.03)",
-                  }
-            }
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
+                ? "bg-nav-scrolled border-border-medium"
+                : "bg-nav-top border-border-subtle"
+            }`}
           >
             {/* Brand */}
             <a
               href="#hero"
-              className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-white hover:text-white/80 transition-colors shrink-0 uppercase tracking-widest font-mono py-1"
+              className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-text-primary hover:text-text-primary/80 transition-colors shrink-0 uppercase tracking-widest font-mono py-1"
             >
-              <span className="w-1.5 h-1.5 bg-white shrink-0" />
+              <span className="w-1.5 h-1.5 bg-accent shrink-0" />
               Dimas Sodiin
             </a>
 
@@ -62,7 +54,7 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="text-[11px] font-mono text-[#878686] hover:text-white transition-colors uppercase tracking-widest"
+                  className="text-[11px] font-mono text-text-secondary hover:text-text-primary transition-colors uppercase tracking-widest"
                 >
                   {l.name}
                 </a>
@@ -70,16 +62,16 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
             </div>
 
             {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-4 shrink-0">
+            <div className="hidden md:flex items-center gap-3 shrink-0">
               {/* Language Switcher Badge */}
-              <div className="flex items-center border border-white/10 p-0.5 bg-black/40">
+              <div className="flex items-center border border-border-medium p-0.5 bg-surface-tint">
                 <button
                   type="button"
                   onClick={() => lang !== "id" && toggleLanguage()}
                   className={`px-2.5 py-1 text-[10px] font-mono tracking-widest uppercase transition-colors ${
                     lang === "id"
-                      ? "bg-white text-black font-semibold"
-                      : "text-[#878686] hover:text-white"
+                      ? "bg-accent text-accent-contrast font-semibold"
+                      : "text-text-secondary hover:text-text-primary"
                   }`}
                   aria-label="Ganti bahasa ke Indonesia"
                 >
@@ -90,8 +82,8 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                   onClick={() => lang !== "en" && toggleLanguage()}
                   className={`px-2.5 py-1 text-[10px] font-mono tracking-widest uppercase transition-colors ${
                     lang === "en"
-                      ? "bg-white text-black font-semibold"
-                      : "text-[#878686] hover:text-white"
+                      ? "bg-accent text-accent-contrast font-semibold"
+                      : "text-text-secondary hover:text-text-primary"
                   }`}
                   aria-label="Switch language to English"
                 >
@@ -102,64 +94,64 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
               <button
                 type="button"
                 onClick={onOpenResume}
-                className="text-[11px] font-mono text-[#878686] hover:text-white uppercase tracking-widest transition-colors flex items-center gap-1.5"
+                className="text-[11px] font-mono text-text-secondary hover:text-text-primary uppercase tracking-widest transition-colors flex items-center gap-1.5"
               >
                 {t.nav.resume}
               </button>
               <a
                 href="#contact"
-                className="text-[11px] font-mono text-black bg-white hover:bg-gray-200 px-4 py-2 uppercase tracking-widest transition-colors flex items-center gap-1.5"
+                className="text-[11px] font-mono text-accent-contrast bg-accent hover:bg-accent-hover px-4 py-2 uppercase tracking-widest transition-colors flex items-center gap-1.5 font-medium"
               >
                 {t.nav.letsTalk}
               </a>
             </div>
 
-            {/* Mobile Controls — Clean Header without overcrowded toggle */}
-            <div className="flex md:hidden items-center gap-3 shrink-0">
+            {/* Mobile Controls */}
+            <div className="flex md:hidden items-center gap-2 shrink-0">
               <button
                 type="button"
                 onClick={onOpenResume}
-                className="text-[10px] font-mono text-[#878686] hover:text-white uppercase tracking-wider px-2 py-1 border border-white/10"
+                className="text-[10px] font-mono text-text-secondary hover:text-text-primary uppercase tracking-wider px-2 py-1 border border-border-medium"
               >
                 {t.nav.resume}
               </button>
               <button
                 type="button"
                 onClick={() => setMobileOpen((o) => !o)}
-                className="p-1.5 text-white/90 hover:text-white transition-colors border border-white/10 bg-white/[0.02]"
+                className="p-1.5 text-text-primary/90 hover:text-text-primary transition-colors border border-border-medium bg-surface-tint"
                 aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
               >
                 {mobileOpen ? <X weight="regular" className="w-5 h-5" /> : <List weight="regular" className="w-5 h-5" />}
               </button>
             </div>
-          </motion.nav>
+          </nav>
 
           {/* Mobile Drawer Menu */}
           {mobileOpen && (
             <motion.div
-              className="mt-2 p-5 bg-[#0f0d0d]/98 backdrop-blur-xl border border-white/10 flex flex-col gap-5 pointer-events-auto shadow-2xl"
+              className="mt-2 p-5 bg-drawer backdrop-blur-xl border border-border-medium flex flex-col gap-5 pointer-events-auto shadow-2xl"
               initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
             >
               {/* Language Switcher inside Hamburger Drawer */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+              <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
                 <div className="flex flex-col">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#878686]">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-text-secondary">
                     {lang === "id" ? "Pilih Bahasa" : "Language"}
                   </span>
-                  <span className="text-[11px] text-white/60">
+                  <span className="text-[11px] text-text-primary/70">
                     {lang === "id" ? "Bahasa Indonesia" : "English"}
                   </span>
                 </div>
-                <div className="flex items-center border border-white/15 p-0.5 bg-black/60">
+                <div className="flex items-center border border-border-medium p-0.5 bg-surface-tint">
                   <button
                     type="button"
                     onClick={() => lang !== "id" && toggleLanguage()}
                     className={`px-3 py-1.5 text-[11px] font-mono tracking-widest uppercase transition-colors ${
                       lang === "id"
-                        ? "bg-white text-black font-semibold"
-                        : "text-[#878686] hover:text-white"
+                        ? "bg-accent text-accent-contrast font-semibold"
+                        : "text-text-secondary hover:text-text-primary"
                     }`}
                   >
                     ID
@@ -169,8 +161,8 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                     onClick={() => lang !== "en" && toggleLanguage()}
                     className={`px-3 py-1.5 text-[11px] font-mono tracking-widest uppercase transition-colors ${
                       lang === "en"
-                        ? "bg-white text-black font-semibold"
-                        : "text-[#878686] hover:text-white"
+                        ? "bg-accent text-accent-contrast font-semibold"
+                        : "text-text-secondary hover:text-text-primary"
                     }`}
                   >
                     EN
@@ -179,16 +171,16 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
               </div>
 
               {/* Navigation Links with generous touch targets */}
-              <div className="flex flex-col divide-y divide-white/[0.04]">
+              <div className="flex flex-col divide-y divide-border-subtle">
                 {links.map((l) => (
                   <a
                     key={l.href}
                     href={l.href}
                     onClick={() => setMobileOpen(false)}
-                    className="py-3 text-[12px] font-mono text-[#878686] hover:text-white uppercase tracking-widest transition-colors flex items-center justify-between"
+                    className="py-3 text-[12px] font-mono text-text-secondary hover:text-text-primary uppercase tracking-widest transition-colors flex items-center justify-between"
                   >
                     <span>{l.name}</span>
-                    <span className="text-[10px] text-white/30 font-sans">→</span>
+                    <span className="text-[10px] text-text-muted font-sans">→</span>
                   </a>
                 ))}
               </div>
@@ -198,7 +190,7 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                 <a
                   href="#contact"
                   onClick={() => setMobileOpen(false)}
-                  className="w-full text-center text-[11px] font-mono text-black bg-white hover:bg-gray-200 py-3 uppercase tracking-widest transition-colors block font-medium"
+                  className="w-full text-center text-[11px] font-mono text-accent-contrast bg-accent hover:bg-accent-hover py-3 uppercase tracking-widest transition-colors block font-medium"
                 >
                   {t.nav.letsTalk}
                 </a>
@@ -210,3 +202,4 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
     </>
   );
 }
+
